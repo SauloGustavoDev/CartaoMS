@@ -1,5 +1,4 @@
-﻿using CartaoMS.Aplicacao.Servicos;
-using MassTransit;
+﻿using MassTransit;
 using Polly;
 using Polly.Retry;
 using RabbitMQ.Client;
@@ -16,12 +15,13 @@ namespace CartaoMS.Aplicacao.Servicos
                             .Handle<Exception>()
                             .WaitAndRetry(3, retry => TimeSpan.FromSeconds(2));
 
-            //retryPolicy.Execute(() => TestaRabbitConnection(_config));
+            retryPolicy.Execute(() => TestaRabbitConnection(_config));
 
 
             services.AddMassTransit(busConfigurator =>
             {
                 busConfigurator.AddConsumer<ClienteCriadoCartaoConsumidor>();
+                busConfigurator.AddConsumer<CriarCartaoConsumidor>();
 
                 busConfigurator.UsingRabbitMq((ctx, cfg) => {
                     cfg.Host(_config["RabbitConnection:host"], host =>
@@ -33,6 +33,11 @@ namespace CartaoMS.Aplicacao.Servicos
                     cfg.ReceiveEndpoint("cliente-criado-cartao", e =>
                     {
                         e.ConfigureConsumer<ClienteCriadoCartaoConsumidor>(ctx);
+                    });
+
+                    cfg.ReceiveEndpoint("gerar-cartao-cliente", e =>
+                    {
+                        e.ConfigureConsumer<CriarCartaoConsumidor>(ctx);
                     });
 
                 });

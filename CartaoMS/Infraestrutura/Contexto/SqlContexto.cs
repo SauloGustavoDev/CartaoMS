@@ -9,5 +9,7 @@ namespace CartaoMS.Infraestrutura.Contexto
         
         }
         public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Erro> Erro { get; set; }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CartaoMS.Dominio.Eventos
+﻿namespace Rabbit.Dominio.Eventos
 {
     public class ClienteCriadoEvento
     {
