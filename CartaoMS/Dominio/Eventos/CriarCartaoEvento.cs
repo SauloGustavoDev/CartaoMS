@@ -3,5 +3,5 @@
     public class CriarCartaoEvento
     {
         public Guid IdCliente { get; set; }
-    }  
+    }
 }

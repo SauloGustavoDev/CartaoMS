@@ -1,7 +1,6 @@
 using CartaoMS.Aplicacao.Servicos;
 using CartaoMS.Infraestrutura.Contexto;
 using Microsoft.EntityFrameworkCore;
-
 Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {

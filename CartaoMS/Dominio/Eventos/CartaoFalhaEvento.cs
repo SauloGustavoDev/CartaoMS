@@ -2,6 +2,6 @@
 {
     public class CartaoFalhaEvento
     {
-        public Guid IdCliente { get; set; } 
+        public Guid IdCliente { get; set; }
     }
 }
